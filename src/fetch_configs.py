@@ -77,7 +77,7 @@ def fetch_wireguard_configs():
         
         os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
         with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-            f.write('\n\n'.join(final_configs))
+            f.write('\n'.join(final_configs))
         
         with open(PRIVATE_KEYS_FILE, 'w', encoding='utf-8') as f:
             f.write('\n'.join(private_keys))
