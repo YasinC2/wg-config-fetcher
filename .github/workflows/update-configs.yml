@@ -34,5 +34,5 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add configs/wireguard_configs.txt
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update WireGuard configs" && git push)
+        git add configs/wireguard_configs.txt configs/wireguard_privatekeys.txt
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update WireGuard configs and private keys" && git push)
