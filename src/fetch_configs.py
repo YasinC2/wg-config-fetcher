@@ -5,6 +5,7 @@ import logging
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+from urllib.parse import urlparse
 
 logging.basicConfig(
     level=logging.INFO,
@@ -48,10 +49,10 @@ def fetch_wireguard_configs():
                     base_config = config.split('#')[0]
                     channel_configs.append(base_config)
                     
-                    # Extract private key from config URL
-                    private_key_match = re.search(r'private_key=([a-zA-Z0-9+/=]+)', base_config)
-                    if private_key_match:
-                        channel_private_keys.append(private_key_match.group(1))
+                    # Extract private key using URL parsing
+                    parsed = urlparse(base_config)
+                    if parsed.username:
+                        channel_private_keys.append(parsed.username)
                     
                     if len(channel_configs) >= 10:
                         break  # Stop processing this channel if we have enough configs
