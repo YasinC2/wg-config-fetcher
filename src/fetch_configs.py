@@ -55,7 +55,11 @@ def fetch_wireguard_configs():
                         channel_private_keys.append(parsed.username)
                     
                     if len(channel_configs) >= 10:
-                        break  # Stop processing this channel if we have enough configs
+                        break  # Stop processing matches if we have enough configs
+                
+                # Exit message loop if we've reached the per-channel limit
+                if len(channel_configs) >= 10:
+                    break
             
             # Add this channel's configs to the main list
             configs.extend(channel_configs)
