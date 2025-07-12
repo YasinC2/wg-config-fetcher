@@ -71,7 +71,7 @@ def fetch_wireguard_configs():
             return
         
         final_configs = [
-            f"{config}#Anon{i+1}"
+            f"{config}#WG-{i+1}"
             for i, config in enumerate(configs)
         ]
         
