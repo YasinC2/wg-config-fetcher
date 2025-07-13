@@ -13,9 +13,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-CHANNEL_URLS = [
-    "https://t.me/s/freewireguard",
-    "https://t.me/s/WireVpnGuard"
+CHANNEL_TARGETS = [
+    ("https://t.me/s/WireVpnGuard", 20),
+    ("https://t.me/s/freewireguard", 5)
 ]
 OUTPUT_FILE = 'configs/wireguard_configs.txt'
 PRIVATE_KEYS_FILE = 'configs/wireguard_privatekeys.txt'
@@ -28,7 +28,7 @@ def fetch_wireguard_configs():
         configs = []
         private_keys = []
         
-        for channel_url in CHANNEL_URLS:
+        for channel_url, target_count in CHANNEL_TARGETS:
             # Process each channel URL
             response = requests.get(channel_url, headers=headers)
             response.raise_for_status()
@@ -54,22 +54,20 @@ def fetch_wireguard_configs():
                     if parsed.username:
                         channel_private_keys.append(parsed.username)
                     
-                    if len(channel_configs) >= 10:
+                    if len(channel_configs) >= target_count:
                         break  # Stop processing matches if we have enough configs
                 
                 # Exit message loop if we've reached the per-channel limit
-                if len(channel_configs) >= 10:
+                if len(channel_configs) >= target_count:
                     break
             
             # Add this channel's configs to the main list
             configs.extend(channel_configs)
             private_keys.extend(channel_private_keys)
             
-            if len(configs) >= 20:
-                break  # Stop processing channels if we have enough total configs
 
         # Take first 20 configs across all channels
-        configs = configs[:20]
+        # configs = configs[:20]
         
         if not configs:
             logger.error("No WireGuard configs found!")
