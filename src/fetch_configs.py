@@ -14,8 +14,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 CHANNEL_TARGETS = [
-    ("https://t.me/s/WireVpnGuard", 34),
-    ("https://t.me/s/freewireguard", 5)
+    ("https://t.me/s/WireVpnGuard", 10),
+    ("https://t.me/s/freewireguard", 10)
 ]
 OUTPUT_FILE = 'configs/wireguard_configs.txt'
 PRIVATE_KEYS_FILE = 'configs/wireguard_privatekeys.txt'
